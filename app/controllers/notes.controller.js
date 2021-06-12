@@ -9,7 +9,7 @@ exports.getNotes = (req, res) => {
     }
 
     const note = new Notes({
-        id_creador: req.body.id_creador
+        id_creador: req.params.id_creador
     });
 
     Notes.getNotes(note, (err, data) => {
