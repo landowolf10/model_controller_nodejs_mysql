@@ -54,20 +54,19 @@ exports.updateNote = (req, res) => {
         });
     }
 
-    const idNota = req.params.noteID;
-
     const note = new Notes({
+        id_nota: req.body.id_nota,
         titulo: req.body.titulo,
         contenido: req.body.contenido
     });
 
-    Notes.updateNote(idNota, note, (err, data) => {
+    Notes.updateNote(note, (err, data) => {
         if(err)
         {
             if(err.kind === "not_found")
             {
                 res.status(404).send({
-                    message: `No note found with id ${idNota}.`
+                    message: `No note found with id ${note.id_nota}.`
                 });
             }
         }

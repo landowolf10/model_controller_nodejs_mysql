@@ -4,6 +4,7 @@ const User = require('./user.model');
 const Notes = function(notes)
 {
     this.id_creador = notes.id_creador;
+    this.id_nota = notes.id_nota;
     this.nombre_creador = notes.nombre_creador;
     this.titulo = notes.titulo;
     this.contenido = notes.contenido;
@@ -37,8 +38,8 @@ Notes.creatNote = (note, result) => {
     });
 };
 
-Notes.updateNote = (id, note, result) => {
-    sql.query("CALL spActualizarNota(?, ?, ?);", [id, note.titulo, note.contenido], (err, res) => {
+Notes.updateNote = (note, result) => {
+    sql.query("CALL spActualizarNota(?, ?, ?);", [note.id_nota, note.titulo, note.contenido], (err, res) => {
         if(err)
         {
             console.log("Error: ", err);
@@ -51,8 +52,8 @@ Notes.updateNote = (id, note, result) => {
             result({ kind: "not_found" }, null);
         }
 
-        console.log("Updated note: ", { id, ...note });
-        result(null, { id, ...note });
+        console.log("Updated note: ", { ...note });
+        result(null, { ...note });
     });
 };
 
